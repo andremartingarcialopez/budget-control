@@ -1,15 +1,24 @@
+import type { Bill } from "../types/types"
+
 export type BudgetActions =
-    { type: "add-budget", payload: { budget: number } }
+    { type: "add-budget", payload: { budget: number } } |
+    { type: "open-modal" } |
+    { type: "close-modal" } |
+    { type: "add-bill", payload: {bill: Bill} } 
 
 export type InitialStateProps = {
     budget: number
+    modal: boolean
+    bills: Bill[];
 }
 
 export const initialState: InitialStateProps = {
     budget: 0,
+    modal: false,
+    bills: []
 }
 
-export function budgetReducer(state: InitialStateProps = initialState,action: BudgetActions) {
+export function budgetReducer(state: InitialStateProps = initialState, action: BudgetActions) {
 
 
     if (action.type == "add-budget") {
@@ -19,6 +28,27 @@ export function budgetReducer(state: InitialStateProps = initialState,action: Bu
         }
     }
 
+    if (action.type == "open-modal") {
+        return {
+            ...state,
+            modal: true
+        }
+    }
+
+    if (action.type == "close-modal") {
+        return {
+            ...state,
+            modal: false
+        }
+    }
+
+    if (action.type == "add-bill") {
+        return{
+            ...state,
+            bills: [...state.bills, action.payload.bill]
+        }
+    }
+
     return state
-    
+
 }

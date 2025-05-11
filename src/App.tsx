@@ -1,6 +1,12 @@
+import BillsList from "./components/BillsList"
+import { BudgetTracker } from "./components/BudgetTracker"
 import FormBudget from "./components/FormBudget"
+import ModalAndButton from "./components/ModalAndBuuton"
+import useBudget from "./hooks/useBudget"
 
 function App() {
+
+  const { state } = useBudget()
 
   return (
     <>
@@ -9,7 +15,14 @@ function App() {
       </header>
 
       <section className="mx-auto max-w-4xl">
-        <FormBudget/>
+        {state.budget <= 0 || isNaN(state.budget) ? <FormBudget /> :
+          <>
+            <BudgetTracker />
+            <ModalAndButton/>
+            <BillsList/>
+          </>
+        }
+
       </section>
     </>
   )
