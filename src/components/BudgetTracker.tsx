@@ -15,7 +15,7 @@ export function BudgetTracker() {
         <div className="p-5 bg-white shadow-2xl shadow-gray-400 rounded-xl mt-5 grid grid-cols-1 md:grid-cols-2 items-center gap-4 mx-2">
 
             <div>
-                <img src="/public/grafico.jpg" alt="" />
+                <img src="/grafico.jpg" alt="" />
             </div>
 
             <div className="flex flex-col space-y-2">
