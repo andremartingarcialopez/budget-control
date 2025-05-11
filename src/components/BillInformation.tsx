@@ -51,10 +51,10 @@ export function BillInformation({ bill }: BillInformationProps) {
                 leadingActions={leadingActions()}
                 trailingActions={trailingActions()}
             >
-                <div className="bg-slate-300 p-5 flex gap-3 space-y-3 items-center rounded-xl mt-5 w-full">
+                <div className="bg-slate-200 p-5 flex gap-3 space-y-3 items-center rounded-xl mt-5 w-full">
 
                     <div>
-                        <img className="w-20" src={`/icon_${infoCategory.icon}.png`} alt="" />
+                        <img className="w-15 md:w-20" src={`/icon_${infoCategory.icon}.png`} alt="" />
                     </div>
 
 

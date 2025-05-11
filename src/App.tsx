@@ -18,8 +18,9 @@ function App() {
         {state.budget <= 0 || isNaN(state.budget) ? <FormBudget /> :
           <>
             <BudgetTracker />
-            <ModalAndButton/>
             <BillsList/>
+            <ModalAndButton/>
+
           </>
         }
 

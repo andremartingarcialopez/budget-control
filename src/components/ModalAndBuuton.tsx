@@ -16,7 +16,7 @@ export default function ModalAndButton() {
           onClick={() => dispatch({type: "open-modal"})}
 
         >
-          <PlusCircleIcon className='w-16 h-16 text-indigo-700 hover:text-indigo-500 active:text-indigo-700 rounded-full cursor-pointer' />
+          <PlusCircleIcon className='w-12 md:w-16 h-16 text-indigo-700 hover:text-indigo-500 active:text-indigo-700 rounded-full cursor-pointer' />
         </button>
       </div>
 
