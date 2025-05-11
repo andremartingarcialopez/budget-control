@@ -6,38 +6,18 @@ body {
     background-color: #e8e8f0;
 }
 
-.bg-pink-primary {
-    background-color: #bc34f4;
+/*** SWIPE LIST OVERRIDES **/
+.swipeable-list-item__leading-actions, 
+.swipeable-list-item__trailing-actions {
+  @apply text-white text-lg uppercase font-bold mt-5;
+}
+.swipeable-list-item__leading-actions{
+  @apply bg-indigo-600;
+}
+.swipeable-list-item__trailing-actions {
+  @apply bg-red-700;
+}
+.swipeable-list .swipe-action {
+  @apply flex justify-center items-center
 }
 
-.bg-pink-secondary {
-    background-color: #e514fc;
-}
-
-.bg-blue-primary {
-    background-color: #469fe7;
-}
-
-.bg-blue-secondary {
-    background-color: #36ade4;
-}
-
-.pink-secondary {
-    color: #e514fc;
-}
-
-.pink-primary {
-    color: #bc34f4;
-}
-
-.color-medium {
-    color: #6e7bec;
-}
-
-.blue-secondary {
-    color: #36ade4
-}
-
-.blue-primary {
-    color: #469fe7
-}

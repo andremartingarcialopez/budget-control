@@ -4,7 +4,8 @@ export type BudgetActions =
     { type: "add-budget", payload: { budget: number } } |
     { type: "open-modal" } |
     { type: "close-modal" } |
-    { type: "add-bill", payload: {bill: Bill} } 
+    { type: "add-bill", payload: {bill: Bill} } |
+    { type: "delete-bill", payload: {id: Bill["id"]} } 
 
 export type InitialStateProps = {
     budget: number
@@ -46,6 +47,13 @@ export function budgetReducer(state: InitialStateProps = initialState, action: B
         return{
             ...state,
             bills: [...state.bills, action.payload.bill]
+        }
+    }
+
+    if (action.type == "delete-bill") {
+        return {
+            ...state,
+            bills: state.bills.filter(bill => bill.id !== action.payload.id)
         }
     }
 
