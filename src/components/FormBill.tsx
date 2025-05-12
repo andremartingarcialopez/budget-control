@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { categories } from "../data/data";
 import MessageError from "./MessageError";
 import { currentDay } from "../helpers/helpers";
@@ -16,6 +16,15 @@ export default function FormBill() {
         category: ""
     });
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        if (state.idEdit) {
+            const editingBill = state.bills.filter(function (bill) {
+                return bill.id == state.idEdit
+            })[0];
+            setBill(editingBill)
+        }
+    }, [state.idEdit])
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
         if (e.target.id == "amount") {
@@ -51,15 +60,22 @@ export default function FormBill() {
             return
         }
 
-        dispatch({ type: "add-bill", payload: { bill: { ...bill, id: v4() } } })
-        state.modal = false;
+        if (state.idEdit) {
+            dispatch({ type: "edit-bill", payload: { bill: { ...bill, id: v4() } } })
+            state.modal = false
+        } else {
+            dispatch({ type: "add-bill", payload: { bill: { ...bill, id: v4() } } })
+            state.modal = false;
+        }
+
+
 
     }
 
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col space-y-3" action="">
-            <legend className="text-center text-2xl md:text-4xl font-bold text-indigo-700 border-b-4 pb-2">Nuevo Gasto</legend>
+            <legend className="text-center text-2xl md:text-4xl font-bold text-indigo-700 border-b-4 pb-2">{state.idEdit ? "Actualizando Gasto" : "Nuevo Gasto"}</legend>
 
             <div>
                 <label className="p-2" htmlFor="nameBill">Nombre:</label>
@@ -88,7 +104,7 @@ export default function FormBill() {
                 </select>
             </div>
 
-            <input className="bg-indigo-600 mt-5 p-2 rounded-xl text-white cursor-pointer hover:bg-indigo-400 active:bg-indigo-600" type="submit" value={"Agregar Gasto"} />
+            <input className="bg-indigo-600 mt-5 p-2 rounded-xl text-white cursor-pointer hover:bg-indigo-400 active:bg-indigo-600" type="submit" value={state.idEdit ? "Actualizar Gasto" : "Agregar Gasto"} />
 
             {error && <MessageError
                 error={error} />

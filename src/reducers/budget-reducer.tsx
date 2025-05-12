@@ -5,7 +5,9 @@ export type BudgetActions =
     { type: "open-modal" } |
     { type: "close-modal" } |
     { type: "add-bill", payload: { bill: Bill } } |
-    { type: "delete-bill", payload: { id: Bill["id"] } }
+    { type: "delete-bill", payload: { id: Bill["id"] } } |
+    { type: "get-id-edit", payload: { id: Bill["id"] } } |
+    { type: "edit-bill", payload: { bill: Bill } }
 
 function initialBudget() {
     const budgetLocal = localStorage.getItem("budget");
@@ -21,12 +23,14 @@ export type InitialStateProps = {
     budget: number
     modal: boolean
     bills: Bill[];
+    idEdit: string
 }
 
 export const initialState: InitialStateProps = {
     budget: initialBudget(),
     modal: false,
-    bills: initialBills()
+    bills: initialBills(),
+    idEdit: ""
 }
 
 export function budgetReducer(state: InitialStateProps = initialState, action: BudgetActions) {
@@ -64,6 +68,28 @@ export function budgetReducer(state: InitialStateProps = initialState, action: B
         return {
             ...state,
             bills: state.bills.filter(bill => bill.id !== action.payload.id)
+        }
+    }
+
+    if (action.type == "get-id-edit") {
+        return {
+            ...state,
+            idEdit: action.payload.id,
+            modal: true
+        }
+    }
+
+    if (action.type == "edit-bill") {
+        return {
+            ...state,
+            bills: state.bills.map(function (bill) {
+                if (bill.id == state.idEdit) {
+                    return action.payload.bill
+                } else {
+                    return state.bills
+                }
+            }),
+            modal: false
         }
     }
 

@@ -18,7 +18,7 @@ export type BillInformationProps = {
 
 export function BillInformation({ bill }: BillInformationProps) {
 
-    const { state,dispatch } = useBudget();
+    const { state, dispatch } = useBudget();
     const infoCategory = useMemo(() => {
         return categories.filter(function (category) {
             return category.id == bill.category
@@ -28,7 +28,7 @@ export function BillInformation({ bill }: BillInformationProps) {
     function leadingActions() {
         return (
             <LeadingActions>
-                <SwipeAction onClick={() => { }}>
+                <SwipeAction onClick={() => dispatch({ type: "get-id-edit", payload: { id: bill.id } })}>
                     Editar
                 </SwipeAction>
             </LeadingActions>
@@ -38,7 +38,7 @@ export function BillInformation({ bill }: BillInformationProps) {
     function trailingActions() {
         return (
             <TrailingActions>
-                <SwipeAction destructive={true} onClick={() =>dispatch({type: "delete-bill", payload: {id:bill.id}}) }>
+                <SwipeAction destructive={true} onClick={() => dispatch({ type: "delete-bill", payload: { id: bill.id } })}>
                     Eliminar
                 </SwipeAction>
             </TrailingActions>
@@ -70,6 +70,6 @@ export function BillInformation({ bill }: BillInformationProps) {
 
                 </div>
             </SwipeableListItem>
-        </SwipeableList> 
+        </SwipeableList>
     )
 }
