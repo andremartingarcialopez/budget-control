@@ -8,6 +8,9 @@ function App() {
 
   const { state } = useBudget()
 
+  localStorage.setItem("budget", JSON.stringify(state.budget))
+  localStorage.setItem("bills",JSON.stringify(state.bills));
+
   return (
     <>
       <header className="p-8 bg-purple-700 mx-2 rounded-xl mt-1">

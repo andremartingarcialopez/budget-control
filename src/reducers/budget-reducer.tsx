@@ -4,8 +4,18 @@ export type BudgetActions =
     { type: "add-budget", payload: { budget: number } } |
     { type: "open-modal" } |
     { type: "close-modal" } |
-    { type: "add-bill", payload: {bill: Bill} } |
-    { type: "delete-bill", payload: {id: Bill["id"]} } 
+    { type: "add-bill", payload: { bill: Bill } } |
+    { type: "delete-bill", payload: { id: Bill["id"] } }
+
+function initialBudget() {
+    const budgetLocal = localStorage.getItem("budget");
+    return budgetLocal ? JSON.parse(budgetLocal) : 0
+}
+
+function initialBills() {
+    const billsLocal = localStorage.getItem("bills");
+    return billsLocal ? JSON.parse(billsLocal) : []
+}
 
 export type InitialStateProps = {
     budget: number
@@ -14,9 +24,9 @@ export type InitialStateProps = {
 }
 
 export const initialState: InitialStateProps = {
-    budget: 0,
+    budget: initialBudget(),
     modal: false,
-    bills: []
+    bills: initialBills()
 }
 
 export function budgetReducer(state: InitialStateProps = initialState, action: BudgetActions) {
@@ -44,7 +54,7 @@ export function budgetReducer(state: InitialStateProps = initialState, action: B
     }
 
     if (action.type == "add-bill") {
-        return{
+        return {
             ...state,
             bills: [...state.bills, action.payload.bill]
         }
