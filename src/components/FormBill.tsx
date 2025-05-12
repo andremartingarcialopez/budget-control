@@ -9,13 +9,22 @@ import { v4 } from "uuid";
 export default function FormBill() {
 
     const { state, dispatch } = useBudget();
+    const [error, setError] = useState("");
     const [bill, setBill] = useState<DrafBill>({
         nameBill: "",
         amount: 0,
         date: currentDay(),
         category: ""
     });
-    const [error, setError] = useState("");
+    const [previousBill, setPreviousBill] = useState(0)
+
+    const gastado = state.bills.reduce(function (total, bill) {
+        return total = (total + bill.amount)
+    }, 0);
+
+    const restante = state.budget - gastado;
+
+    
 
     useEffect(() => {
         if (state.idEdit) {
@@ -23,6 +32,7 @@ export default function FormBill() {
                 return bill.id == state.idEdit
             })[0];
             setBill(editingBill)
+            setPreviousBill(editingBill.amount)
         }
     }, [state.idEdit])
 
@@ -54,6 +64,14 @@ export default function FormBill() {
 
         if (bill.amount <= 0 || isNaN(bill.amount)) {
             setError("Introduce una cantidad valida");
+            setTimeout(() => {
+                setError("")
+            }, 3000);
+            return
+        }
+
+        if ((bill.amount - previousBill) > restante) {
+            setError("Sobrepasas el presupuesto total");
             setTimeout(() => {
                 setError("")
             }, 3000);
