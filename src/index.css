@@ -6,6 +6,10 @@ body {
     background-color: #e8e8f0;
 }
 
+.CircularProgressbar-text {
+  white-space: pre-line;
+}
+
 /*** SWIPE LIST OVERRIDES **/
 .swipeable-list-item__leading-actions, 
 .swipeable-list-item__trailing-actions {

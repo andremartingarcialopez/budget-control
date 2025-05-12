@@ -1,4 +1,4 @@
-import type { Bill } from "../types/types"
+import type { Bill, Categories } from "../types/types"
 
 export type BudgetActions =
     { type: "add-budget", payload: { budget: number } } |
@@ -7,7 +7,9 @@ export type BudgetActions =
     { type: "add-bill", payload: { bill: Bill } } |
     { type: "delete-bill", payload: { id: Bill["id"] } } |
     { type: "get-id-edit", payload: { id: Bill["id"] } } |
-    { type: "edit-bill", payload: { bill: Bill } }
+    { type: "edit-bill", payload: { bill: Bill } } |
+    { type: "reset-app" } |
+    { type: "filter-bill", payload: {id: Categories["id"]} } 
 
 function initialBudget() {
     const budgetLocal = localStorage.getItem("budget");
@@ -24,13 +26,15 @@ export type InitialStateProps = {
     modal: boolean
     bills: Bill[];
     idEdit: string
+    idFilter: Categories["id"]
 }
 
 export const initialState: InitialStateProps = {
     budget: initialBudget(),
     modal: false,
     bills: initialBills(),
-    idEdit: ""
+    idEdit: "",
+    idFilter: ""
 }
 
 export function budgetReducer(state: InitialStateProps = initialState, action: BudgetActions) {
@@ -46,14 +50,15 @@ export function budgetReducer(state: InitialStateProps = initialState, action: B
     if (action.type == "open-modal") {
         return {
             ...state,
-            modal: true
+            modal: true,
         }
     }
 
     if (action.type == "close-modal") {
         return {
             ...state,
-            modal: false
+            modal: false,
+            idEdit: ""
         }
     }
 
@@ -86,12 +91,33 @@ export function budgetReducer(state: InitialStateProps = initialState, action: B
                 if (bill.id == state.idEdit) {
                     return action.payload.bill
                 } else {
-                    return state.bills
+                    return bill
                 }
             }),
-            modal: false
+            modal: false,
+            idEdit: ""   
         }
     }
+
+    if (action.type == "reset-app") {
+        return {
+            ...state,
+            budget: 0,
+            modal: false,
+            bills: [],
+            idEdit: ""
+        }
+    }
+
+    if (action.type == "filter-bill") {
+        return{
+            ...state,
+            idFilter: action.payload.id
+
+        }
+    }
+
+    
 
     return state
 

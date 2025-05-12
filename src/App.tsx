@@ -1,5 +1,6 @@
 import BillsList from "./components/BillsList"
 import { BudgetTracker } from "./components/BudgetTracker"
+import { FilterBill } from "./components/FilterBill"
 import FormBudget from "./components/FormBudget"
 import ModalAndButton from "./components/ModalAndBuuton"
 import useBudget from "./hooks/useBudget"
@@ -21,6 +22,7 @@ function App() {
         {state.budget <= 0 || isNaN(state.budget) ? <FormBudget /> :
           <>
             <BudgetTracker />
+            <FilterBill/>
             <BillsList/>
             <ModalAndButton/>
 
