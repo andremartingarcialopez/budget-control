@@ -17,9 +17,9 @@ export function BudgetTracker() {
     
 
     return (
-        <div className="p-5 bg-white shadow-2xl shadow-gray-400 rounded-xl mt-5 grid grid-cols-1 md:grid-cols-2 items-center mx-2 justify-center">
+        <div className="p-5 bg-white shadow-2xl shadow-gray-400 rounded-xl mt-5 flex flex-col md:flex-row mx-2 justify-center items-center ">
 
-            <div className="w-90 ">
+            <div className="w-80 flex justify-center items-center">
                 <CircularProgressbar 
                 value={+percentage}
                 text={`${percentage}%`}
