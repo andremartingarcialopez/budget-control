@@ -17,7 +17,7 @@ export function BudgetTracker() {
     
 
     return (
-        <div className="p-5 bg-white shadow-2xl shadow-gray-400 rounded-xl mt-5 flex flex-col md:flex-row mx-2 justify-center items-center ">
+        <div className="p-5 bg-white shadow-2xl shadow-gray-400 rounded-xl mt-5 flex flex-col md:flex-row max-w-4xl justify-evenly items-center ">
 
             <div className="w-80 flex justify-center items-center">
                 <CircularProgressbar 
@@ -38,7 +38,7 @@ export function BudgetTracker() {
                 </CircularProgressbar>
             </div>
 
-            <div className="flex flex-col space-y-2 mt-10 md:mt-0">
+            <div className="flex git flex-col space-y-2 mt-10 md:mt-0">
                 <button className="w-full text-white bg-indigo-700 p-2 rounded-xl hover:bg-indigo-500 active:bg-indigo-700 cursor-pointer" onClick={() => dispatch({type: "reset-app"}) }>Reiniciar App</button>
 
                 <Amounts
